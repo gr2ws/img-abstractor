@@ -1,4 +1,3 @@
-from os import path
 from get_img import *
 # GET THE FILE
 

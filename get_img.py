@@ -1,5 +1,6 @@
 from os import path
 
+
 def get_image():
     """
     Gets the file name of the image to be abstracted.
