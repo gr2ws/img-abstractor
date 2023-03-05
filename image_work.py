@@ -30,19 +30,38 @@ def image_exist(img_folder, img_name):
     return path.exists(f"{img_folder}\\{img_name}")
 
 
-def get_coordinate_step(img_loc, samples_per_row):
+def get_pixels(img_loc, root_num_tiles):
     """
-    Gets the step for each next coordinate to be sampled.
-
+    Gets a tiles x tiles size 2d array representing the rgb values of a specific (x, y) point in an image.
+    Divides the image evenly into the user desired number of tiles, sampling a point using said number as an increment.
+    The total number of tiles is the root_num_tiles ^ 2.
     Args:
-        img_loc (str): location of the image
-        samples_per_row (int): how many times each row of an image should be sampled
-
+        img_loc (str): the relative path of the image.
+        root_num_tiles (int): the number of tiles to be painted by row, for a number of times.
     Returns:
-        (int): the int step, rounded down
+        A root_num_tiles x root_num_tiles 2d array representing a plane, each point having tuple (r, g, b) values.
     """
+
     img = Image.open(img_loc)
-    step = int(img.size[0] // samples_per_row)
 
-    return step
+    rgb_values = list(img.getdata())
+    total_size = len(rgb_values)
+    row_step = int(total_size / root_num_tiles)
+    column_step = int(row_step / root_num_tiles)
 
+    image_rgb = []
+
+    rows = 0
+
+    while rows < total_size:
+        to_add = []
+        columns = 0
+
+        while columns < row_step:
+            to_add.append(rgb_values[rows + columns])
+            columns += column_step
+
+        image_rgb.append(to_add)
+        rows += row_step
+
+    return image_rgb
