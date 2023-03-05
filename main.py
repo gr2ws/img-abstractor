@@ -5,9 +5,9 @@ img_default = "img"
 img_name = get_filename()
 
 while not image_exist(img_default, img_name):
-    print("Image not found! Please make sure it is in the img folder and that the file name is correct.")
+    print(f"Image not found! Please make sure it is in the '{img_default}' folder and that the file name is correct.")
     img_name = get_filename()
 
-img_directory = f"{img_default}\\{img_name}"
+img_loc = f"{img_default}\\{img_name}"
 
-# MAKE IMAGE 1:1
+make_spliced_img_dir(img_default, img_name)
