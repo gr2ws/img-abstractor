@@ -1,4 +1,5 @@
-from os import path, mkdir
+from os import path
+from PIL import Image
 
 
 def get_filename():
@@ -29,20 +30,19 @@ def image_exist(img_folder, img_name):
     return path.exists(f"{img_folder}\\{img_name}")
 
 
-def make_spliced_img_dir(img_dir, img_name):
+def get_coordinate_step(img_loc, samples_per_row):
     """
-    Creates the directory where the spliced images are to be stored, within the same directory as the image.
+    Gets the step for each next coordinate to be sampled.
 
     Args:
-         img_dir (str): default directory of the image.
-         img_name (str): name of the image, used to name the directory.
+        img_loc (str): location of the image
+        samples_per_row (int): how many times each row of an image should be sampled
+
+    Returns:
+        (int): the int step, rounded down
     """
+    img = Image.open(img_loc)
+    step = int(img.size[0] // samples_per_row)
 
-    dir_name = ""
-    img_i = 0
+    return step
 
-    while img_name[img_i] != ".":
-        dir_name += img_name[img_i]
-        img_i += 1
-
-    mkdir(f"{img_dir}\\{dir_name}")
