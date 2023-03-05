@@ -1,7 +1,7 @@
 from os import path
 
 
-def get_image():
+def get_filename():
     """
     Prompts the user for the file name of the image to be abstracted.
 
