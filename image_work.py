@@ -48,22 +48,33 @@ def get_pixels(img_loc, root_num_tiles):
 
     rgb_values = list(img.getdata())
     total_size = len(rgb_values)
-    row_step = int(total_size / root_num_tiles)
-    column_step = int(row_step / root_num_tiles)
+    height, width = img.height, img.width
+    flat_row = 0
 
-    image_rgb = []
+    unflatten_rgb = []
 
-    rows = 0
-
-    while rows < total_size:
+    while flat_row < total_size:
         to_add = []
-        columns = 0
+        flat_column = 0
+        while flat_column < width:
+            to_add.append(rgb_values[flat_row + flat_column])
+            flat_column += 1
+        unflatten_rgb.append(to_add)
+        flat_row += width
 
-        while columns < row_step:
-            to_add.append(rgb_values[rows + columns])
-            columns += column_step
+    paint_rgb = []
+    y_step = int(height / root_num_tiles)
+    x_step = int(width / root_num_tiles)
 
-        image_rgb.append(to_add)
-        rows += row_step
+    paint_row = 0
 
-    return image_rgb
+    while paint_row < height:
+        paint_column = 0
+        to_add = []
+        while paint_column < width:
+            to_add.append(unflatten_rgb[paint_row][paint_column])
+            paint_column += x_step
+        paint_rgb.append(to_add)
+        paint_row += y_step
+
+    return paint_rgb
