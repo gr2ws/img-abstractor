@@ -38,9 +38,9 @@ if mode == "paint":
     painter = Turtle()
     painter.resizemode("auto")
     turtle_size = available_sizes[tiles_index]
-    painter.pensize(int(20 * turtle_size))
+    painter.shapesize(turtle_size, turtle_size, turtle_size)
     painter.hideturtle()
-    painter.shape("circle")
+    painter.shape(input("Enter turtle shape (circle, square, triangle, arrow, turtle): "))
     painter.speed(0)
 
     # PAINT
@@ -62,13 +62,12 @@ if mode == "paint":
             print(f"{image_rgb[paint_row][paint_column]} @ ({paint_row}, {paint_column})")
 
             painter.goto(start_width + column, start_height + row, )
-            painter.pendown()
+            painter.stamp()
             painter.color(image_rgb[root_num_tiles - 1 - paint_row][paint_column])
 
             paint_column += 1
             column += column_step
 
-        painter.penup()
         paint_row += 1
         row += row_step
 
