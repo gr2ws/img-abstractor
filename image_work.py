@@ -79,3 +79,58 @@ def get_pixels(img_loc, root_num_tiles):
 
     return paint_rgb
 
+
+def get_ascii(img_loc, line_length):
+    """
+        Gets an array of lines filled with ascii symbols, chosen based on the perceived brightness of the color at a
+        specific tile in a specific coordinate in the image.
+
+        Args:
+            img_loc (str): the relative path of the image.
+            line_length(int): the number of lines to be outputted by row, for a number of times.
+        Returns:
+            An array of lines, to be printed sequentially to view the product.
+        """
+
+    img = Image.open(img_loc)
+
+    rgb_values = list(img.getdata())
+    total_size = len(rgb_values)
+    height, width = img.height, img.width
+    flat_row = 0
+
+    unflatten_rgb = []
+
+    while flat_row < total_size:
+        to_add = []
+        flat_column = 0
+        while flat_column < width:
+            to_add.append(rgb_values[flat_row + flat_column])
+            flat_column += 1
+        unflatten_rgb.append(to_add)
+        flat_row += width
+
+    def get_luminance_scale(r, g, b):
+        return int(round((0.299 * r + 0.587 * g + 0.114 * b) / 25, 0)) - 1
+
+    ascii_chars = ["█", "▓", "▒", "░", "\\", "*", "\"", ".", "`", " "]
+    ascii_row = 0
+    ascii_output = []
+
+    y_step = int(height / line_length)
+    x_step = int(width / line_length)
+
+    while ascii_row < height:
+        ascii_column = 0
+        to_add = ''
+        while ascii_column < width:
+            luminance = get_luminance_scale(unflatten_rgb[ascii_row][ascii_column][0],
+                                            unflatten_rgb[ascii_row][ascii_column][1],
+                                            unflatten_rgb[ascii_row][ascii_column][2])
+            to_add += f" {ascii_chars[luminance]} "
+
+            ascii_column += x_step
+        ascii_output.append(to_add)
+        ascii_row += y_step
+
+    return ascii_output
