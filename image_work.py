@@ -7,7 +7,8 @@ def get_filename():
     Prompts the user for the file name of the image to be abstracted.
 
     Returns:
-         (str): the name of the image that the user input
+         (str): the name of the image that the user input.
+
     """
 
     image_name = input("Enter the name of the image. Make sure that it is in the 'img' folder."
@@ -35,6 +36,7 @@ def get_pixels(img_loc, root_num_tiles):
     Gets a tiles x tiles size 2d array representing the rgb values of a specific (x, y) point in an image.
     Divides the image evenly into the user desired number of tiles, sampling a point using said number as an increment.
     The total number of tiles is the root_num_tiles ^ 2.
+
     Args:
         img_loc (str): the relative path of the image.
         root_num_tiles (int): the number of tiles to be painted by row, for a number of times.
