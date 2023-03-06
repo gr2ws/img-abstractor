@@ -2,6 +2,7 @@ from os import path
 from PIL import Image
 
 
+
 def get_filename():
     """
     Prompts the user for the file name of the image to be abstracted.
@@ -12,6 +13,7 @@ def get_filename():
     """
 
     image_name = input("Enter the name of the image. Make sure that it is in the 'img' folder."
+                       "\nMake sure that the img folder is in the same directory/folder as this file."
                        "\nInclude the file type (img.png, img.jpeg, etc.): ")
     return image_name
 

@@ -1,5 +1,6 @@
 from image_work import *
 from turtle import Turtle, Screen
+from sys import stdout
 
 # PROCURE IMAGE
 img_default = "img"
@@ -10,7 +11,7 @@ while not image_exist(img_default, img_name):
 
 img_loc = f"{img_default}\\{img_name}"
 
-mode = input("(ASCII [Fixed Size] / Paint): ").lower()
+mode = input("(ASCII / Paint): ").lower()
 
 if mode == "paint":
     available_num_tiles = [16, 32, 64, 128, 256, 512, 640]
@@ -30,13 +31,14 @@ if mode == "paint":
     canvas.colormode(255)
 
     # READY TURTLE
-    available_sizes = [1.7, .85, .45, .35, .3, .2, .1]
+    available_sizes = [1.6, .8, .4, .35, .3, .2, .1]
 
     painter = Turtle()
     painter.resizemode("auto")
     turtle_size = available_sizes[tiles_index]
-    painter.shapesize(turtle_size, turtle_size, turtle_size)
-    painter.shape("square")
+    painter.pensize(int(20 * turtle_size))
+    painter.hideturtle()
+    painter.shape("circle")
     painter.speed(0)
 
     # PAINT
@@ -47,7 +49,6 @@ if mode == "paint":
 
     painter.penup()
     painter.goto(start_height, start_width)
-    painter.hideturtle()
 
     image_rgb = get_pixels(img_loc, root_num_tiles)
 
@@ -59,13 +60,13 @@ if mode == "paint":
             print(f"{image_rgb[paint_row][paint_column]} @ ({paint_row}, {paint_column})")
 
             painter.goto(start_width + column, start_height + row, )
-
+            painter.pendown()
             painter.color(image_rgb[root_num_tiles - 1 - paint_row][paint_column])
-            painter.stamp()
 
             paint_column += 1
             column += column_step
 
+        painter.penup()
         paint_row += 1
         row += row_step
 
