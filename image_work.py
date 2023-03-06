@@ -78,3 +78,4 @@ def get_pixels(img_loc, root_num_tiles):
         paint_row += y_step
 
     return paint_rgb
+
