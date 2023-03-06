@@ -1,6 +1,5 @@
 from image_work import *
 from turtle import Turtle, Screen
-from sys import stdout
 
 # PROCURE IMAGE
 img_default = "img"
@@ -11,7 +10,10 @@ while not image_exist(img_default, img_name):
 
 img_loc = f"{img_default}\\{img_name}"
 
-mode = input("(ASCII / Paint): ").lower()
+mode = input("ASCII: Darkness and lightness will be represented by different ASCII characters."
+             "\nPaint: A Python Turtle will paint an abstractized image for you."
+             "\nText: Loop a line of text, with capitalization representing darkness and lightness."
+             "\n(ASCII / Paint / Text): ").lower()
 
 if mode == "paint":
     available_num_tiles = [16, 32, 64, 128, 256, 512, 640]
@@ -71,16 +73,20 @@ if mode == "paint":
         row += row_step
 
     canvas.exitonclick()
-elif mode == "ascii":
+elif mode == "ascii" or "text":
     available_line_size = [16, 32, 64, 128]
 
-    lines_index = int(input("Enter the desired line length: "
-                            "\n1 - 16 x 16\n2 - 32 x 32\n3 - 64 x 64"
-                            "\n4 - 128 x 128\nSize: ")) - 1
+    if mode == "text":
+        text = input("Warning! Text mode is fixed to 64 line length."
+                     "\nEnter a sentence/sentences.\n")
+        lines_index = 2
+    else:
+        lines_index = int(input("Enter the desired line length: "
+                                "\n1 - 16 x 16\n2 - 32 x 32\n3 - 64 x 64"
+                                "\n4 - 128 x 128\nSize: ")) - 1
+        text = ""
 
-    image_ascii = get_ascii(img_loc, available_line_size[lines_index])
+    image_ascii = get_ascii(img_loc, available_line_size[lines_index], mode, text)
 
     for line in image_ascii:
         print(line, end="\n")
-
-
