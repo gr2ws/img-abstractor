@@ -6,10 +6,6 @@ Otherwise, text is outputted in the console. Text or ASCII mode may output a bad
 gone beyond just getting the darkness and lightness of the image for these modes. Text mode may output really bad text in particular since the representation of darkness 
 and lightness is limited.
 
-## required external packages
-   * pillow 
-   > pip install pillow
-
 ## how to use
 * download the image you want to use. 
 * manually crop the image so that it has a 1:1 ratio.
