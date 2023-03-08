@@ -7,7 +7,7 @@ some refactoring for the latter.
 
 ## how to use
 * download the image you want to use. 
-* manually crop the image so that it has a 1:1 ratio.
+* [OPTIONAL] manually crop the image so that it has a 1:1 ratio. 1:1 images produce the least weird looking outputs.
 * place image in the "img" folder
 * run main.py
 * answer the prompts. you will be asked the name of the file and what to do with it.
