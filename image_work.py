@@ -159,4 +159,3 @@ def get_ascii(img_loc, line_length, mode, text):
         ascii_row += y_step
 
     return ascii_output
-
