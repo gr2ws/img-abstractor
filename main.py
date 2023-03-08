@@ -73,19 +73,21 @@ if mode == "paint":
 
     canvas.exitonclick()
 elif mode == "ascii" or "text":
-    available_line_size = [16, 32, 64, 128]
+    available_line_size = [32, 64, 128]
 
     if mode == "text":
         text = input("Warning! Text mode is fixed to 64 line length."
                      "\nEnter a sentence/sentences.\n")
-        lines_index = 2
+        lines_index = 1
     else:
         lines_index = int(input("Enter the desired line length: "
-                                "\n1 - 16 x 16\n2 - 32 x 32\n3 - 64 x 64"
-                                "\n4 - 128 x 128\nSize: ")) - 1
+                                "\n1 - 32 x 32\n2 - 64 x 64"
+                                "\n3 - 128 x 128\nSize: ")) - 1
         text = ""
 
     image_ascii = get_ascii(img_loc, available_line_size[lines_index], mode, text)
 
     for line in image_ascii:
-        print(line, end="\n")
+        print("\033[48;5;0m" + line, end="\n")
+
+    print("\033[0;0m")

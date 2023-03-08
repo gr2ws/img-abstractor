@@ -116,18 +116,14 @@ def get_ascii(img_loc, line_length, mode, text):
     def get_luminance_scale(r, g, b):
         return int(round((0.299 * r + 0.587 * g + 0.114 * b) / 25, 0)) - 1
 
-    ascii_chars = ["█", "▓", "▒", "░", "\\", "*", "\"", ".", "`", " "]
+    ascii_chars = [" ", "`", ".", ";", "\\", "*", "\"", "░", "▓", "█"]
     ascii_row = 0
     ascii_output = []
 
-    text_to_use = ""
-
-    for i in range(len(text)):
-        if text[i] != " " or text[i] != ".":
-            text_to_use += text[i]
+    color_flags = ["238", "242", "247",  "250", "253"]
 
     text_counter = 0
-    text_length = len(text_to_use)
+    text_length = len(text)
 
     y_step = int(height / line_length)
     x_step = int(width / line_length)
@@ -141,25 +137,21 @@ def get_ascii(img_loc, line_length, mode, text):
                                             unflatten_rgb[ascii_row][ascii_column][1],
                                             unflatten_rgb[ascii_row][ascii_column][2])
             if mode == "ascii":
-                to_add += f" {ascii_chars[luminance]} "
+                to_add += f"{ascii_chars[luminance]}{ascii_chars[luminance]}{ascii_chars[luminance]}"
 
             elif mode == "text":
                 text_index = 0
+
                 if text_counter > 0:
                     text_index = (text_counter % text_length) - 1
 
-                if 0 <= luminance < 3:
-                    to_add += f"{text_to_use[text_index].upper()}"
-                    text_counter += 1
-                elif 3 <= luminance < 5:
-                    to_add += f"{text_to_use[text_index].lower()}"
-                    text_counter += 1
-                elif 5 >= luminance < 7:
-                    to_add += "."
-                else:
-                    to_add += " "
+                to_add += f"\033[38;5;{color_flags[int((luminance + 1) / 2) - 1]}m" \
+                          f"{text[text_index]}" \
+                          f"{text[text_index + 1 - text_length]}" \
+                          f"{text[text_index + 2 - text_length]}"
 
-                to_add = f"  {to_add}  "
+                to_add = f"{to_add}"
+                text_counter += 3
 
             ascii_column += x_step
 
@@ -167,3 +159,4 @@ def get_ascii(img_loc, line_length, mode, text):
         ascii_row += y_step
 
     return ascii_output
+
