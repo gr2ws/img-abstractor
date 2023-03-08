@@ -3,7 +3,7 @@ from turtle import Turtle, Screen
 
 # PROCURE IMAGE
 img_default = "img"
-img_name = 'def'
+img_name = "def"
 
 while not image_exist(img_default, img_name):
     img_name = get_filename()
