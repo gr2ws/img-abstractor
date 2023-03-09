@@ -116,7 +116,7 @@ def get_ascii(img_loc, line_length, mode, text):
     def get_luminance_scale(r, g, b):
         return int(round((0.299 * r + 0.587 * g + 0.114 * b) / 25, 0)) - 1
 
-    ascii_chars = [" ", "`", ".", ";", "\\", "*", "\"", "░", "▓", "█"]
+    ascii_chars = [" ", "~", ":", "*", "#", "▒", "▓", "▓", "█", "█"]
     ascii_row = 0
     ascii_output = []
 

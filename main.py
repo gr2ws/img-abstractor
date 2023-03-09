@@ -87,7 +87,9 @@ elif mode == "ascii" or "text":
 
     image_ascii = get_ascii(img_loc, available_line_size[lines_index], mode, text)
 
+    print("\033[48;5;0m")
+
     for line in image_ascii:
-        print("\033[48;5;0m" + line, end="\n")
+        print(line, end="\n")
 
     print("\033[0;0m")
