@@ -12,16 +12,16 @@ img_loc = f"{img_default}\\{img_name}"
 
 mode = input("ASCII: Darkness and lightness will be represented by different ASCII characters."
              "\nPaint: A Python Turtle will paint an abstractized image for you."
-             "\nText: Loop a line of text, with capitalization representing darkness and lightness."
+             "\nText: Loop a line of text, with text colored to represent luminosity."
              "\n(ASCII / Paint / Text): ").lower()
 
 if mode == "paint":
     available_num_tiles = [16, 32, 64, 128, 256, 512, 640]
 
     tiles_index = int(input("Enter the desired resolution of the image: "
-                            "\n1 - 16 x 16\n2 - 32 x 32\n3 - 64 x 64"
-                            "\n4 - 128 x 128\n5 - 256 x 256\n6 - 512 x 512"
-                            "\n7 - Max Canvas Size (640 x 640)\nSize: ")) - 1
+                              "\n1 - 16 x 16\n2 - 32 x 32\n3 - 64 x 64"
+                              "\n4 - 128 x 128\n5 - 256 x 256\n6 - 512 x 512"
+                              "\n7 - Max Canvas Size (640 x 640)\nSize: ")) - 1
 
     root_num_tiles = available_num_tiles[tiles_index]
 
